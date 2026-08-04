@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>미디어플랫폼 위클리 - 2026년 8월 3일</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f7f4ec;
+    --paper2:#efe9db;
+    --ink:#1a1a1a;
+    --ink-soft:#3a3a3a;
+    --red:#8b1a1a;
+    --rule:#1a1a1a;
+    --rule-light:#b9b2a0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#d9d2bd;
+    font-family:'Noto Serif KR',serif;
+    color:var(--ink);
+  }
+  .page{
+    max-width:1180px;
+    margin:0 auto;
+    background:var(--paper);
+    padding:28px 44px 60px;
+    box-shadow:0 0 40px rgba(0,0,0,.25);
+  }
+  /* ===== Masthead ===== */
+  .mast-top{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:11px;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    padding-bottom:6px;
+    border-bottom:1px solid var(--rule);
+  }
+  .masthead{
+    text-align:center;
+    padding:16px 0 10px;
+    border-bottom:4px double var(--rule);
+  }
+  .masthead h1{
+    font-size:64px;
+    margin:0;
+    letter-spacing:.02em;
+    font-weight:900;
+  }
+  .masthead .tagline{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin-top:6px;
+    letter-spacing:.08em;
+  }
+  .mast-sub{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:11.5px;
+    padding:6px 2px;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:22px;
+  }
+  .mast-sub b{color:var(--red);}
+
+  h2.section-title{
+    font-size:20px;
+    background:var(--red);
+    color:#f7f4ec;
+    display:inline-block;
+    padding:5px 16px;
+    margin:0 0 14px 0;
+    letter-spacing:.06em;
+    font-weight:700;
+  }
+  .section{
+    margin-bottom:34px;
+    padding-top:14px;
+    border-top:2px solid var(--rule);
+  }
+
+  /* ===== Headline ===== */
+  .headline-grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:26px;
+    padding-bottom:10px;
+  }
+  .headline-grid h3.big-headline{
+    font-size:34px;
+    line-height:1.28;
+    margin:0 0 12px;
+  }
+  .dek{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    border-left:3px solid var(--red);
+    padding-left:10px;
+    margin-bottom:14px;
+  }
+  .byline{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:10.5px;
+    color:#777;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    margin-bottom:10px;
+  }
+  p{
+    font-size:14.5px;
+    line-height:1.82;
+    margin:0 0 12px;
+    text-align:justify;
+  }
+  .cols2{columns:2;column-gap:26px;}
+  .cols3{columns:3;column-gap:22px;}
+  .pull-quote{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:15px;
+    font-weight:700;
+    line-height:1.6;
+    background:var(--paper2);
+    border-top:2px solid var(--red);
+    border-bottom:2px solid var(--red);
+    padding:12px 14px;
+    margin:14px 0;
+  }
+  .stat-box{
+    background:var(--paper2);
+    border:1px solid var(--rule-light);
+    padding:14px 16px;
+    font-family:'Noto Sans KR',sans-serif;
+  }
+  .stat-box .num{
+    font-size:38px;
+    font-weight:900;
+    color:var(--red);
+    line-height:1;
+  }
+  .stat-box .lbl{font-size:12px;color:var(--ink-soft);margin-top:6px;}
+  .stat-box .src{font-size:10px;color:#888;margin-top:10px;}
+
+  /* ===== Charts ===== */
+  .chart-wrap{
+    background:var(--paper2);
+    border:1px solid var(--rule-light);
+    padding:16px 18px 12px;
+    margin-bottom:6px;
+  }
+  .chart-title{
+    font-family:'Noto Sans KR',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    margin-bottom:12px;
+  }
+  .bar-row{
+    display:grid;
+    grid-template-columns:110px 1fr 60px;
+    align-items:center;
+    gap:8px;
+    margin-bottom:8px;
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:11.5px;
+  }
+  .bar-track{
+    background:#e2dbc8;
+    height:16px;
+    position:relative;
+    border:1px solid var(--rule-light);
+  }
+  .bar-fill{
+    height:100%;
+    background:var(--red);
+  }
+  .bar-fill.alt{background:#3a3a3a;}
+  .bar-fill.alt2{background:#a9825a;}
+  .bar-val{text-align:right;font-weight:700;}
+  caption,.cap{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:10.5px;
+    color:#777;
+    margin-top:8px;
+    display:block;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:12px;
+    margin-bottom:6px;
+  }
+  th,td{
+    border-bottom:1px solid var(--rule-light);
+    padding:7px 8px;
+    text-align:left;
+    vertical-align:top;
+  }
+  th{
+    background:var(--ink);
+    color:#f7f4ec;
+    font-weight:700;
+    font-size:11.5px;
+  }
+  tr:nth-child(even) td{background:#efe9db;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;}
+  .box{
+    border:1px solid var(--rule-light);
+    padding:14px 16px;
+    background:#fbf9f2;
+  }
+  .box h4{
+    font-size:15px;
+    margin:0 0 8px;
+    border-bottom:2px solid var(--red);
+    padding-bottom:6px;
+  }
+  .box p{font-size:13px;line-height:1.7;margin-bottom:0;}
+
+  .desk-box{
+    border:1px solid var(--rule-light);
+    background:#fbf9f2;
+    padding:14px 16px;
+  }
+  .desk-box .tag{
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:10.5px;
+    color:#fff;
+    background:var(--ink);
+    display:inline-block;
+    padding:2px 8px;
+    margin-bottom:8px;
+  }
+
+  footer{
+    margin-top:30px;
+    padding-top:14px;
+    border-top:4px double var(--rule);
+    font-family:'Noto Sans KR',sans-serif;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+  footer h5{
+    font-size:13px;
+    margin:0 0 10px;
+    color:var(--ink);
+  }
+  footer .src-cols{columns:2;column-gap:30px;}
+  footer li{margin-bottom:6px;line-height:1.5;break-inside:avoid;}
+  footer a{color:var(--red);text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+  footer .note{margin-top:14px;font-size:10.5px;color:#888;}
+
+  .kicker{
+    font-family:'Noto Sans KR',sans-serif;
+    font-weight:700;
+    font-size:11px;
+    color:var(--red);
+    letter-spacing:.1em;
+    margin-bottom:4px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="mast-top">
+    <span>GLOBAL MEDIA PLATFORM WEEKLY</span>
+    <span>IPTV · CABLE TV · OTT / FAST 산업 동향</span>
+    <span>정가 无料 · 데스크 발행</span>
+  </div>
+
+  <div class="masthead">
+    <h1>미디어플랫폼 위클리</h1>
+    <div class="tagline">GLOBAL PAY TV & STREAMING WEEKLY REPORT</div>
+  </div>
+
+  <div class="mast-sub">
+    <span>2026년 8월 3일 (월) 발행</span>
+    <span><b>제32호</b> · 2026년 32주차</span>
+    <span>담당: 미디어플랫폼 데스크</span>
+  </div>
+
+  <!-- ===== 헤드라인: 시장 구조 변화 ===== -->
+  <section class="section">
+    <div class="kicker">HEADLINE · 시장 구조 변화</div>
+    <div class="headline-grid">
+      <div>
+        <h3 class="big-headline">"코드커팅 2.0" 본격화… Pay TV 5000만 가구 붕괴 눈앞, 컴캐스트·차터는 몸집 재편으로 승부수</h3>
+        <div class="byline">글로벌 미디어산업 데스크</div>
+        <p>미국 유료방송 시장이 다시 한번 크게 흔들리고 있다. 업계에서 "코드커팅 2.0"으로 부르는 새로운 이탈 물결 속에 2026년 말까지 미국 코드커팅·코드네버 가구가 8070만에 이를 것으로 전망되며, 유료방송 보급률은 이미 50% 밑으로 내려앉았다. 2분기 실적에서 컴캐스트는 TV 가입자 28만 명, 인터넷 가입자 16만7000명을 동시에 잃었고, 디시네트워크·슬링TV를 보유한 에코스타는 1분기에만 36만6000명의 유료방송 가입자를 반납했다. 라이트리딩은 이런 흐름을 두고 "2분기에만 155만 명이 이탈해 코드커팅의 두 번째 파도가 다가오고 있다"고 짚었다.</p>
+        <p>이에 맞서 대형 사업자들은 정면 돌파 대신 구조 재편을 택하고 있다. 컴캐스트는 지난 6월 말 NBC유니버설과 스카이를 별도 상장사로 분리하는 스핀오프 계획을 발표했고, 광대역·무선 중심의 본체는 슬림화한다. 동시에 광대역과 무선을 묶는 컨버전스 전략을 강화해 2분기 무선 회선 순증 44만8000건이라는 역대 최고 실적을 냈다. 케이블 업계 최대 이슈는 차터커뮤니케이션스의 콕스커뮤니케이션스 인수(345억 달러)다. 캘리포니아공공사업위원회(CPUC)가 8월 13일 표결을 앞두고 있고, 법무부의 반독점 승인 시한(9월 15일)까지 맞물려 있어 8월 중 거래가 종결될 가능성이 거론된다. 성사되면 미국 최대 유선 인터넷 사업자(41개 주, 3800만 고객)가 탄생한다.</p>
+        <p>넷플릭스·유튜브 등 스트리밍 진영은 이 틈을 파고들며 광고 사업을 키우고 있다. 넷플릭스는 지난 3월 광고요금제를 월 8.99달러로 인상하며 올해 광고 매출 30억 달러를 목표로 잡았고, 유튜브는 연간 620억 달러 매출(광고만 400억 달러 이상)로 디즈니와 레거시 TV를 합친 규모를 이미 넘어섰다는 평가가 나온다. 아마존은 반대로 독일·오스트리아의 선형 채널 '프라임 TV'를 8월 1일부로 종료하며 실험을 접었다. 닐슨 게이지에 따르면 지난 5월 미국 총 TV 시청 시간 중 스트리밍 비중은 48.6%로 여름철 상승세를 이어갔고, 1분기 광고 기반 시청 안에서 스트리밍 점유율은 46.6%로 역대 최고치를 기록했다.</p>
+      </div>
+      <div>
+        <div class="stat-box" style="margin-bottom:16px;">
+          <div class="num">8,070만</div>
+          <div class="lbl">2026년 말 예상 미국 코드커팅·코드네버 가구 수 (유료방송 가입 가구 5,430만 명 하회 전망)</div>
+          <div class="src">출처: Light Reading, cablecompare.com 종합</div>
+        </div>
+        <div class="stat-box" style="margin-bottom:16px;">
+          <div class="num">345억$</div>
+          <div class="lbl">차터-콕스 합병 총액. CPUC 8월 13일 표결, DOJ 승인 시한 9월 15일</div>
+          <div class="src">출처: Communications Daily, Broadband Breakfast</div>
+        </div>
+        <div class="pull-quote">"2분기에만 유료방송 155만 가입자가 이탈했다. 코드커팅의 두 번째 파도가 다가오고 있다." — 라이트리딩(Light Reading), 2026년 8월</div>
+        <div class="stat-box">
+          <div class="num">48.6%</div>
+          <div class="lbl">2026년 5월 미국 총 TV 시청 시간 중 스트리밍 비중 (Nielsen The Gauge)</div>
+          <div class="src">출처: Nielsen News Center, 2026년 5월</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 콘텐츠① 시청률·순위 ===== -->
+  <section class="section">
+    <h2 class="section-title">플랫폼별 시청률 · 순위</h2>
+    <div class="grid2" style="margin-bottom:20px;">
+      <div class="chart-wrap">
+        <div class="chart-title">① 2026년 5월 미국 TV 총 시청 시간 구성 (Nielsen The Gauge)</div>
+        <div class="bar-row"><span>스트리밍</span><div class="bar-track"><div class="bar-fill" style="width:48.6%"></div></div><span class="bar-val">48.6%</span></div>
+        <div class="bar-row"><span>케이블·방송 등</span><div class="bar-track"><div class="bar-fill alt" style="width:51.4%"></div></div><span class="bar-val">51.4%</span></div>
+        <span class="cap">스트리밍이 여름철 상승세로 총 시청 시간의 절반에 근접. 1분기 광고 기반 시청 내 스트리밍 비중은 46.6%로 역대 최고. 출처: Nielsen News Center(2026.5)</span>
+      </div>
+      <div class="chart-wrap">
+        <div class="chart-title">② 국내 OTT 월간활성이용자(MAU) 순위 (2026년 8월 기준)</div>
+        <div class="bar-row"><span>넷플릭스</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">1,475만</span></div>
+        <div class="bar-row"><span>티빙</span><div class="bar-track"><div class="bar-fill alt" style="width:51.3%"></div></div><span class="bar-val">757만</span></div>
+        <div class="bar-row"><span>쿠팡플레이</span><div class="bar-track"><div class="bar-fill alt2" style="width:49.4%"></div></div><span class="bar-val">729만</span></div>
+        <span class="cap">넷플릭스 부동의 1위, 티빙·쿠팡플레이는 근소한 차이로 2위 경쟁 지속. 출처: 뉴스1 종합</span>
+      </div>
+    </div>
+    <div class="grid2" style="margin-bottom:20px;">
+      <div class="chart-wrap">
+        <div class="chart-title">③ 국내 영상 콘텐츠 시청 시간 플랫폼별 비중</div>
+        <div class="bar-row"><span>유튜브</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">40.6%</span></div>
+        <div class="bar-row"><span>OTT</span><div class="bar-track"><div class="bar-fill alt" style="width:43.6%"></div></div><span class="bar-val">17.7%</span></div>
+        <div class="bar-row"><span>SNS</span><div class="bar-track"><div class="bar-fill alt2" style="width:38.2%"></div></div><span class="bar-val">15.5%</span></div>
+        <div class="bar-row"><span>포털·메신저</span><div class="bar-track"><div class="bar-fill alt" style="width:26.6%"></div></div><span class="bar-val">10.8%</span></div>
+        <div class="bar-row"><span>실시간·케이블</span><div class="bar-track"><div class="bar-fill alt2" style="width:22.7%"></div></div><span class="bar-val">9.2%</span></div>
+        <span class="cap">유튜브·OTT 중심으로 시청이 다변화. 출처: kt나스미디어 2026 NPR 이용자 조사</span>
+      </div>
+      <div class="chart-wrap">
+        <div class="chart-title">④ 2026년 2분기 미국 유료방송 가입자 순감 규모</div>
+        <div class="bar-row"><span>컴캐스트(TV)</span><div class="bar-track"><div class="bar-fill" style="width:76.5%"></div></div><span class="bar-val">-28.0만</span></div>
+        <div class="bar-row"><span>컴캐스트(인터넷)</span><div class="bar-track"><div class="bar-fill alt2" style="width:45.6%"></div></div><span class="bar-val">-16.7만</span></div>
+        <div class="bar-row"><span>디시·슬링TV(1분기)</span><div class="bar-track"><div class="bar-fill alt" style="width:100%"></div></div><span class="bar-val">-36.6만</span></div>
+        <span class="cap">코드커팅 2.0 심화로 레거시 사업자 이탈 지속. 출처: Cord Cutters News, 컴캐스트 2분기 실적발표</span>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th style="width:8%">순위</th><th style="width:24%">타이틀</th><th style="width:16%">플랫폼</th><th style="width:14%">구분</th><th>비고 (7/26~8/1 · THR·Nielsen 집계)</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>더 아이다호 머더스(The Idaho Murders)</td><td>Hulu</td><td>다큐(시리즈)</td><td>공개 후 3일 연속 1위 질주 중인 실화 범죄 다큐</td></tr>
+        <tr><td>2</td><td>더 밤빙 오브 팬암 103</td><td>Netflix</td><td>다큐(시리즈)</td><td>3위로 데뷔 후 다음날 2위로 올라서며 '랜섬 캐년' 추월</td></tr>
+        <tr><td>3</td><td>러브 아일랜드 USA</td><td>Peacock</td><td>리얼리티</td><td>이번 여름 세 번째로 주간 종합 1위 탈환, 역대 최고치 근접</td></tr>
+        <tr><td>4</td><td>사일로(Silo)</td><td>Apple TV+</td><td>SF 드라마</td><td>차트 5위권 지속 유지</td></tr>
+        <tr><td>5</td><td>매스터즈 오브 더 유니버스(2026)</td><td>극장 개봉작 스트리밍</td><td>영화</td><td>영화부문 4일간 1위 이후 아마존 '더 데블스 마우스'에 자리 내줌</td></tr>
+      </tbody>
+    </table>
+    <span class="cap">2025~2026시즌 통산 최다 시청 순위는 '기묘한 이야기'(넷플릭스)·NFL 중계·'트래커'·'댄싱 위드 더 스타스'가 상위권. 출처: Variety, The Hollywood Reporter, The TV Ratings Guide</span>
+  </section>
+
+  <!-- ===== 콘텐츠② 금주의 신작 ===== -->
+  <section class="section">
+    <h2 class="section-title">금주의 신작 (8월 4일~8월 10일)</h2>
+    <table>
+      <thead><tr><th style="width:12%">공개일</th><th style="width:20%">플랫폼</th><th style="width:34%">타이틀</th><th>장르 / 비고</th></tr></thead>
+      <tbody>
+        <tr><td>8.5(수)</td><td>Apple TV+</td><td>테드 래소 시즌4</td><td>드라마 · 인기 스포츠 코미디 시리즈 복귀</td></tr>
+        <tr><td>8.5(수)</td><td>Disney+ / Hulu</td><td>스타워즈: 비전스 프레젠츠 – 더 나인스 제다이</td><td>애니메이션</td></tr>
+        <tr><td>8.6(목)</td><td>스트리밍</td><td>몬스터스 오브 갓</td><td>드라마</td></tr>
+        <tr><td>8.6(목)</td><td>Disney+</td><td>팬텀: 더 뮤지컬 라이브 / 엘리자벳: 더 뮤지컬 라이브</td><td>뮤지컬 실황</td></tr>
+        <tr><td>8.7(금)</td><td>Netflix</td><td>앨리 캣츠</td><td>드라마</td></tr>
+        <tr><td>8.7(금)</td><td>Peacock</td><td>유, 미 앤 투스카니</td><td>Peacock 독점</td></tr>
+        <tr><td>8.7(금)</td><td>국내(웨이브 등)</td><td>플렉스 x 캅 시즌2</td><td>드라마 시즌2 공개</td></tr>
+        <tr><td>8.8(토)</td><td>Peacock</td><td>미즈 엑스 시즌1</td><td>Peacock 독점</td></tr>
+      </tbody>
+    </table>
+    <span class="cap">국내 OTT는 티빙·디즈니+·웨이브 3사 결합 구독 '3 PACK'을 통해 크로스 플랫폼 시청이 확대되는 추세. 출처: TVInsider, ComicBook.com, 다음·비즈니스포스트 종합</span>
+  </section>
+
+  <!-- ===== 콘텐츠③ 다음 주 예정작 ===== -->
+  <section class="section">
+    <h2 class="section-title">다음 주 예정작 (8월 11일~8월 17일 · 대형 이벤트 포함)</h2>
+    <table>
+      <thead><tr><th style="width:12%">공개일</th><th style="width:20%">플랫폼</th><th style="width:34%">타이틀</th><th>장르 / 비고</th></tr></thead>
+      <tbody>
+        <tr><td>8.11(화)</td><td>HBO Max</td><td>하드 노크스: 시애틀 시호크스 편 (시즌22)</td><td>NFL 트레이닝캠프 다큐</td></tr>
+        <tr><td>8.12(수)</td><td>스트리밍</td><td>우먼 인 블루 시즌2</td><td>드라마</td></tr>
+        <tr><td>8.13(목)</td><td>Netflix</td><td>타이어즈 시즌3</td><td>코미디</td></tr>
+        <tr><td>8.15(토)</td><td>Disney+</td><td>리미트리스: 지금, 더 건강하게</td><td>다큐(크리스 헴스워스 주연)</td></tr>
+        <tr><td>8월 중</td><td>Disney+</td><td>몬테크리스토: 더 뮤지컬 라이브</td><td>뮤지컬 실황</td></tr>
+        <tr><td>8월 중</td><td>HBO Max</td><td>랜턴스(Lanterns)</td><td>DC 드라마 시리즈 · 이달 최대 기대작</td></tr>
+      </tbody>
+    </table>
+    <span class="cap">8월 20일 넷플릭스 '아우터뱅크스' 시즌5, 8월 26일 '백년의 고독: 파트2' 등 8월 중하순 대작도 순차 예정. 출처: TVInsider, CinemaBlend, AOL Streaming Guide</span>
+  </section>
+
+  <!-- ===== 주요 이슈 캘린더 ===== -->
+  <section class="section">
+    <h2 class="section-title">주요 이슈 캘린더 (향후 6개월)</h2>
+    <table>
+      <thead><tr><th style="width:14%">일정</th><th style="width:16%">구분</th><th style="width:30%">내용</th><th>미디어 · 마케팅 포인트</th></tr></thead>
+      <tbody>
+        <tr><td>2026.8.13</td><td>규제·M&A</td><td>CPUC, 차터-콕스 합병 표결</td><td>승인 시 미 최대 유선 ISP 탄생, 케이블업계 재편 신호탄</td></tr>
+        <tr><td>2026.9.9~10</td><td>스포츠</td><td>NFL 2026시즌 개막(시애틀) / 멜버른 첫 정규시즌 해외경기</td><td>NBC·Peacock 개막전 중계, 아마존 프라임비디오 NFL 확장 주목</td></tr>
+        <tr><td>2026.9.14</td><td>시상식</td><td>제78회 프라임타임 에미상(LA 피콕극장)</td><td>스트리밍 오리지널 수상 성적표, 마케팅 인용 소재 다량 발생</td></tr>
+        <tr><td>2026.9.15</td><td>규제</td><td>차터-콕스 합병 DOJ 승인 시한</td><td>기한 내 미종결 시 연방 재심사 리스크</td></tr>
+        <tr><td>2026.10.23~31</td><td>스포츠</td><td>MLB 월드시리즈(최대 7차전)</td><td>폭스 중계, 가을 시즌 광고 성수기 개막</td></tr>
+        <tr><td>2026.11.3</td><td>정치·마케팅</td><td>미국 중간선거</td><td>정치광고 특수, 뉴스·시사 콘텐츠 시청 급증 구간</td></tr>
+        <tr><td>2026.11.27 전후</td><td>마케팅</td><td>블랙프라이데이·홀리데이 시즌 개막</td><td>OTT 연말 프로모션·번들 할인 집중, 신규가입 성수기</td></tr>
+        <tr><td>2027.1.6~9</td><td>전시·마케팅</td><td>CES 2027(라스베이거스)</td><td>차세대 커넥티드TV·FAST·AI 셋톱 기술 공개 무대</td></tr>
+      </tbody>
+    </table>
+    <span class="cap">일정은 발행 시점 기준 확인된 최신 정보이며 변동 가능. 출처: NFL Media, Olympics/CES 공식 발표, Communications Daily, hollywoodlife.com, 나무위키 종합</span>
+  </section>
+
+  <!-- ===== 사업자 동향 ===== -->
+  <section class="section">
+    <h2 class="section-title">사업자 동향</h2>
+    <div class="cols2">
+      <p><b>컴캐스트 – NBCU·스카이 분사 착수.</b> 컴캐스트는 6월 말 NBC유니버설과 스카이를 별도 상장사로 분리하는 세금 면제 스핀오프 계획을 발표했다. 2분기 실적은 조정 EBITDA 89억 달러, 조정 EPS 1.04달러, 잉여현금흐름 46억 달러를 기록했고 광대역·무선 컨버전스 전략에 힘입어 무선 회선 순증 44만8000건으로 분기 최고치를 세웠다. 다만 핵심 유선 사업에서는 인터넷 16만7000명, TV 28만 명이 이탈해 코드커팅 압박이 여전함을 보여줬다.</p>
+      <p><b>차터-콕스, 8월 합병 종결 초읽기.</b> 345억 달러 규모의 차터-콕스 인수는 대부분의 규제 문턱을 넘었고 캘리포니아공공사업위원회(CPUC) 판사가 승인을 권고한 데 이어 8월 13일 위원회 표결만 남았다. 법무부 반독점 승인 시한(9월 15일)과 맞물려 있어 업계는 8월 중 거래 종결 가능성에 주목한다. 성사되면 41개 주 3800만 고객을 보유한 미국 최대 유선 인터넷 사업자가 탄생하며, 라이트리딩은 차터가 합병과 별개로 코드커팅 방어를 위해 번들형 스트리밍 상품 확대를 추진 중이라고 전했다.</p>
+    </div>
+    <div class="cols2">
+      <p><b>넷플릭스·유튜브, 광고 전쟁 격화.</b> 넷플릭스는 지난 3월 광고요금제를 월 8.99달러로 인상했고 올해 광고 매출 30억 달러 목표를 내걸며 업프론트 협상에서 광고주 예산 확보 경쟁에 나섰다. 유튜브는 연 매출 620억 달러(광고 400억 달러 이상)로 디즈니와 레거시 TV를 합친 규모를 넘어섰다는 평가와 함께, 방송사처럼 신규 프로그램 라인업을 광고주에 제안하는 등 '정통 TV 네트워크'화 행보를 보이고 있다.</p>
+      <p><b>아마존, 독일·오스트리아 선형 채널 종료.</b> 아마존은 스트리밍과 전통 TV의 간극을 메우려던 선형 채널 '프라임 TV'를 8월 1일부로 독일·오스트리아에서 종료했다. 1년여 만의 실험 중단으로, FAST·선형 하이브리드 모델의 지역별 성과 편차를 보여주는 사례로 거론된다. 한편 영국에서는 넷플릭스가 오프컴(Ofcom) '미디어 네이션스' 조사에서 처음으로 BBC를 제치고 시청자가 가장 먼저 찾는 서비스 1위에 올랐다.</p>
+    </div>
+  </section>
+
+  <!-- ===== 신규·부가서비스 ===== -->
+  <section class="section">
+    <h2 class="section-title">신규 · 부가서비스</h2>
+    <div class="grid3">
+      <div class="box">
+        <h4>키즈 서비스</h4>
+        <p>SK텔레콤·SK브로드밴드는 통합 키즈 브랜드 'ZEM'을 국내 대표 키즈 서비스로 확장하고 있으며, LG유플러스는 2017년 선보인 '아이들나라'를 자녀 학습·놀이 콘텐츠 중심으로 지속 강화 중이다. 이통 3사의 키즈 고객 유치 경쟁은 미래 유료가입자 확보 전략의 핵심 축으로 자리잡았다.</p>
+      </div>
+      <div class="box">
+        <h4>FAST·결합상품 확대</h4>
+        <p>LG전자 'LG채널스'는 전 세계 37개국에서 5000개 이상의 FAST 채널을 제공한다고 밝혔다. 국내에서는 티빙·디즈니플러스·웨이브를 하나의 구독으로 이용할 수 있는 '3 PACK'이 국내 최초 3사 결합 이용권으로 출시돼 플랫폼 간 경계가 흐려지고 있다.</p>
+      </div>
+      <div class="box">
+        <h4>광고·B2B 모델 고도화</h4>
+        <p>닐슨 게이지 기준 2026년 1분기 광고 기반 TV 시청은 전체의 73%에 달하며, 스트리밍이 그 안에서 46.6%로 역대 최고 비중을 차지했다. 넷플릭스·유튜브 등이 업프론트 시즌을 맞아 광고주 예산 확보 경쟁에 나서면서 B2B 광고 상품 고도화가 업계 전반의 화두로 떠올랐다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 한국·아시아 + Usage (본문에 통합 서술) ===== -->
+  <section class="section">
+    <h2 class="section-title">한국 · 아시아 동향 및 소비자 시청 행태</h2>
+    <div class="cols2">
+      <p><b>국내 IPTV 3사 경쟁 구도.</b> KT '지니 TV'(옛 올레 TV), SK브로드밴드 'B tv', LG유플러스 'U+tv'가 국내 유료방송 시장을 3분하고 있으며 지니 TV가 가입자 기준 1위를 유지하고 있다. 지니 TV는 구매한 VOD를 모바일 OTT '시즌(Seezn)'에서 이어보기 할 수 있도록 연동을 강화하는 등 IPTV-OTT 결합 전략을 지속하고 있다.</p>
+      <p><b>국내 OTT 이용자 3300만 시대.</b> 국내 OTT 이용자 수는 2025년 약 3000만 명을 넘어섰고 2026년에는 3300만 명 이상으로 늘어날 전망이다. 이는 전체 인구의 60% 이상이 최소 한 개 이상의 OTT를 이용한다는 의미로, 넷플릭스가 MAU 1475만 명으로 부동의 1위, 티빙(757만)과 쿠팡플레이(729만)가 근소한 차이로 2위 경쟁을 이어가고 있다.</p>
+    </div>
+    <div class="cols2">
+      <p><b>세대별 시청 격차 뚜렷.</b> 20대는 SNS·OTT 이용이 두드러진 반면 60대는 TV·라디오 의존도가 높아 세대 간 미디어 소비 격차가 이어지고 있다. 10~40대에서는 전통 TV보다 OTT를 선호하는 비율이 80%를 넘어섰고, 10대는 하루 약 2시간의 영상 시청 중 절반을 숏폼에 할애하는 것으로 나타났다.</p>
+      <p><b>라이브·인터랙티브 콘텐츠 강화.</b> OTT·SNS 플랫폼들은 주문형 비디오를 넘어 라이브 스트리밍을 강화하고 실시간 투표·채팅 등 시청자 참여형 요소를 접목하는 추세다. 국내 영상 시청 시간 중 유튜브가 40.6%로 압도적 1위를 유지하는 가운데 OTT(17.7%)와 SNS(15.5%)가 뒤를 잇고 있다.</p>
+    </div>
+  </section>
+
+  <!-- ===== 데스크 시사점 ===== -->
+  <section class="section">
+    <h2 class="section-title">데스크 시사점</h2>
+    <div class="grid3">
+      <div class="desk-box">
+        <div class="tag">시사점 1</div>
+        <p>코드커팅 2.0이 진행형인 지금, 레거시 사업자의 생존 전략은 '단순 인수합병'을 넘어 <b>분사·컨버전스 재편</b>으로 이동하고 있다. 컴캐스트의 NBCU·스카이 분리와 차터-콕스 합병은 같은 시기 정반대 방향의 재편이라는 점에서 국내 사업자의 IPTV-미디어 자산 분리·결합 전략에도 시사하는 바가 크다.</p>
+      </div>
+      <div class="desk-box">
+        <div class="tag">시사점 2</div>
+        <p>닐슨 게이지 기준 광고 기반 시청이 전체의 73%에 달하고 그중 스트리밍이 46.6%로 역대 최고를 기록한 점은, <b>광고 사업 고도화</b>가 더 이상 선택이 아닌 필수임을 보여준다. 넷플릭스·유튜브의 업프론트 공세는 국내 OTT의 광고요금제 전략에도 벤치마크가 될 전망이다.</p>
+      </div>
+      <div class="desk-box">
+        <div class="tag">시사점 3</div>
+        <p>국내는 3사 결합구독('3 PACK')과 키즈·B2B 부가서비스로 락인(lock-in) 전략을 강화하는 흐름이다. 9~11월 에미상·중간선거·홀리데이 시즌이 연이어 있는 만큼, <b>마케팅 캘린더에 맞춘 오리지널 공개·프로모션 타이밍</b> 설계가 4분기 실적을 좌우할 변수가 될 것으로 보인다.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <h5>SOURCES</h5>
+    <div class="src-cols">
+      <ul>
+        <li><a href="https://www.lightreading.com/cable-technology/pay-tv-losses-hit-1-55m-in-q2-as-cord-cutting-s-second-wave-looms" target="_blank">Light Reading – Pay-TV losses hit 1.55M in Q2 as cord-cutting's 'second wave' looms</a></li>
+        <li><a href="https://www.lightreading.com/video-streaming/charter-eyes-bigger-streaming-bundle-to-curb-pay-tv-cord-cutting" target="_blank">Light Reading – Charter eyes bigger streaming bundle to curb pay-TV cord-cutting</a></li>
+        <li><a href="https://www.advanced-television.com/2026/05/12/research-fast-emerges-as-tvs-new-normal-in-us/" target="_blank">Advanced Television – Research: FAST emerges as TV's new normal in US</a></li>
+        <li><a href="https://www.advanced-television.com/2026/02/24/fast-trend-report-2026-whats-trending/" target="_blank">Advanced Television – FAST Trend Report 2026: What's trending?</a></li>
+        <li><a href="https://deadline.com/2026/05/tv-upfronts-2026-schedule-what-to-expect-1236882246/" target="_blank">Deadline – TV Upfronts 2026 Schedule And What To Expect</a></li>
+        <li><a href="https://deadline.com/feature/2026-tv-premiere-dates-1236391902/" target="_blank">Deadline – 2026 TV Premiere Dates</a></li>
+        <li><a href="https://variety.com/2026/tv/news/most-popular-tv-shows-2025-26-ratings-stranger-things-dwts-1236760828/" target="_blank">Variety – 100 Most-Watched TV Series of 2025-26</a></li>
+        <li><a href="https://www.hollywoodreporter.com/tv/tv-news/streaming-ratings-june-29-july-5-2026-1236660450/" target="_blank">The Hollywood Reporter – Streaming Ratings, June 29–July 5, 2026</a></li>
+      </ul>
+      <ul>
+        <li><a href="https://www.nielsen.com/news-center/2026/streaming-embarks-on-annual-summer-ascent-in-nielsens-may-2026-gauge-reports/" target="_blank">Nielsen – Streaming Embarks on Annual Summer Ascent (May 2026 Gauge)</a></li>
+        <li><a href="https://www.nielsen.com/news-center/2026/nielsens-q1-2026-ad-supported-gauge/" target="_blank">Nielsen – Q1 2026 Ad-Supported Gauge</a></li>
+        <li><a href="https://cordcuttersnews.com/comcast-spectrum-netflix-lionsgate-siriusxm-dish-directv-here-are-some-big-mergers-to-watch-for-in-2026-as-media-companies-go-on-a-buying-spree/" target="_blank">Cord Cutters News – Big Mergers to Watch in 2026</a></li>
+        <li><a href="https://communicationsdaily.com/news/2026/05/05/Charter-and-Cox-Want-CPUCs-Merger-Decision-by-Aug-13-2605040050" target="_blank">Communications Daily – Charter and Cox Want CPUC's Merger Decision by Aug. 13</a></li>
+        <li><a href="https://broadbandbreakfast.com/charter-warns-california-delay-could-jeopardize-cox-merger-timeline/" target="_blank">Broadband Breakfast – Charter Warns California Delay Could Jeopardize Cox Merger Timeline</a></li>
+        <li><a href="https://media.nfl.com/news-and-releases/2026-nfl-regular-season-to-kick-off-wednesday--sept--9-in-seattl" target="_blank">NFL Media – 2026 NFL Regular Season Kickoff</a></li>
+        <li><a href="https://hollywoodlife.com/feature/when-are-the-2026-emmys-awards-ceremony-5548989/" target="_blank">Hollywood Life – 2026 Emmy Awards Date & Details</a></li>
+        <li><a href="https://www.news1.kr/it-science/cc-newmedia/5900452" target="_blank">뉴스1 – 국내 OTT 이용자 수 넷플릭스 1위… 티빙·쿠플 엎치락뒤치락</a></li>
+        <li><a href="https://blog.nasmedia.co.kr/entry/2026NPRusersurveyinsight-3TV" target="_blank">kt나스미디어 – TV 시청 변화, 유튜브·OTT 중심 스크린으로 이동 (2026 NPR)</a></li>
+      </ul>
+    </div>
+    <div class="note">본 리포트는 2026년 8월 3일 기준 공개된 자료를 바탕으로 작성되었으며, 해외 매체 기사는 한국어로 번역·요약해 반영했습니다. 세부 수치·일정은 발행 이후 변동될 수 있습니다. · 미디어플랫폼 위클리 데스크</div>
+  </footer>
+
+</div>
+</body>
+</html>
