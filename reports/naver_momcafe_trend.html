@@ -1,0 +1,468 @@
+<title>네이버 맘카페 트렌드 모니터</title>
+<style>
+:root{
+  --bg:#F3F6F4;
+  --surface:#FFFFFF;
+  --surface-2:#EAF0EC;
+  --text:#1B2422;
+  --muted:#5B6864;
+  --accent:#1F6F5C;
+  --accent-soft:#DCEAE6;
+  --accent-2:#C96A2E;
+  --border:#DCE4DF;
+  --up:#2E7D4F;
+  --down:#C0472F;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#141E1B;
+    --surface:#1C2824;
+    --surface-2:#22322C;
+    --text:#E9EFEC;
+    --muted:#93A39C;
+    --accent:#57B79A;
+    --accent-soft:#22342E;
+    --accent-2:#E79A5C;
+    --border:#2A3A34;
+    --up:#6FCB93;
+    --down:#E17A63;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141E1B;
+  --surface:#1C2824;
+  --surface-2:#22322C;
+  --text:#E9EFEC;
+  --muted:#93A39C;
+  --accent:#57B79A;
+  --accent-soft:#22342E;
+  --accent-2:#E79A5C;
+  --border:#2A3A34;
+  --up:#6FCB93;
+  --down:#E17A63;
+}
+:root[data-theme="light"]{
+  --bg:#F3F6F4;
+  --surface:#FFFFFF;
+  --surface-2:#EAF0EC;
+  --text:#1B2422;
+  --muted:#5B6864;
+  --accent:#1F6F5C;
+  --accent-soft:#DCEAE6;
+  --accent-2:#C96A2E;
+  --border:#DCE4DF;
+  --up:#2E7D4F;
+  --down:#C0472F;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Apple SD Gothic Neo','Malgun Gothic','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{
+  font-family:ui-monospace,'SF Mono',Consolas,'Roboto Mono',monospace;
+  font-variant-numeric:tabular-nums;
+}
+.wrap{
+  max-width:1080px;
+  margin:0 auto;
+  padding:40px 24px 80px;
+}
+header.top{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:36px;
+  padding-bottom:28px;
+  border-bottom:1px solid var(--border);
+}
+.eyebrow{
+  font-size:12.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:700;
+}
+h1{
+  font-size:clamp(26px,4vw,34px);
+  margin:0;
+  font-weight:800;
+  letter-spacing:-0.02em;
+  text-wrap:balance;
+}
+.top-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  color:var(--muted);
+  font-size:13.5px;
+  margin-top:4px;
+}
+.top-meta b{color:var(--text);}
+.summary-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-bottom:44px;
+}
+@media (max-width:760px){
+  .summary-row{grid-template-columns:1fr;}
+}
+.chip{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px 18px;
+}
+.chip .label{
+  font-size:12px;
+  color:var(--muted);
+  letter-spacing:.03em;
+  margin-bottom:6px;
+}
+.chip .delta{
+  display:flex;
+  align-items:baseline;
+  gap:8px;
+}
+.chip .delta .num{
+  font-size:22px;
+  font-weight:800;
+}
+.delta.down .num{color:var(--down);}
+.delta.up .num{color:var(--up);}
+.chip .sub{font-size:12.5px;color:var(--muted);margin-top:4px;}
+
+section.board{
+  margin-bottom:40px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:var(--surface);
+  overflow:hidden;
+}
+.board-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:24px;
+  padding:22px 24px 18px;
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+}
+.board-title{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  max-width:560px;
+}
+.board-title h2{
+  font-size:19px;
+  margin:0;
+  font-weight:800;
+}
+.keywords{
+  font-size:12.5px;
+  color:var(--muted);
+}
+.keywords span{
+  background:var(--surface-2);
+  padding:2px 8px;
+  border-radius:100px;
+  margin-right:6px;
+  display:inline-block;
+  margin-bottom:4px;
+}
+.spark-block{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-width:220px;
+}
+.spark-block svg{display:block;}
+.spark-num{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.spark-num .val{font-size:20px;font-weight:800;}
+.spark-num .cap{font-size:11px;color:var(--muted);}
+.insight{
+  padding:14px 24px;
+  font-size:13.5px;
+  color:var(--muted);
+  background:var(--accent-soft);
+  border-bottom:1px solid var(--border);
+}
+.insight b{color:var(--text);}
+.cards{
+  display:flex;
+  gap:14px;
+  padding:20px 24px 24px;
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.card{
+  flex:0 0 auto;
+  width:270px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px 15px;
+  background:var(--bg);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.card .cafe{
+  font-size:11.5px;
+  font-weight:700;
+  color:var(--accent);
+  background:var(--accent-soft);
+  align-self:flex-start;
+  padding:3px 8px;
+  border-radius:100px;
+}
+.card .ttl{
+  font-size:14px;
+  font-weight:700;
+  line-height:1.4;
+}
+.card .snip{
+  font-size:12.5px;
+  color:var(--muted);
+  line-height:1.5;
+  flex:1;
+}
+.card a{
+  font-size:12px;
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:700;
+}
+.card a:hover{text-decoration:underline;}
+.card a:focus-visible, button:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+footer{
+  margin-top:8px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+  font-size:12px;
+  color:var(--muted);
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+@media (prefers-reduced-motion:no-preference){
+  section.board{transition:transform .15s ease;}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Naver Cafe Trend Monitor</div>
+    <h1>네이버 맘카페 트렌드 모니터</h1>
+    <div class="top-meta">
+      <span>조회 기간 <b class="mono">2026-04-22 ~ 2026-07-22</b></span>
+      <span>대상 <b>맘스홀릭 베이비 · 레몬테라스 · 도치맘카페 · 영유나라 · 쌍둥이맘 모여라 등 전국 단위 맘카페</b></span>
+      <span>지역 한정 맘카페(부산맘카페, 특정 시·구 맘카페 등)는 모니터링 대상에서 제외</span>
+      <span>주제 <b>미디어/OTT · 육아용품 · 교육/학원</b></span>
+    </div>
+  </header>
+
+  <div class="summary-row">
+    <div class="chip">
+      <div class="label">IPTV · OTT 구독</div>
+      <div class="delta down">
+        <span class="num mono">-19.5%</span>
+        <span>13주 검색량 변화</span>
+      </div>
+      <div class="sub">6월 초 반짝 상승 후 7월 들어 완만한 하락</div>
+    </div>
+    <div class="chip">
+      <div class="label">유모차 · 카시트</div>
+      <div class="delta down">
+        <span class="num mono">-12.2%</span>
+        <span>13주 검색량 변화</span>
+      </div>
+      <div class="sub">5월 말 정점(100) 이후 여름 들어 안정화</div>
+    </div>
+    <div class="chip">
+      <div class="label">영어유치원 · 사교육비</div>
+      <div class="delta down">
+        <span class="num mono">-9.8%</span>
+        <span>13주 검색량 변화</span>
+      </div>
+      <div class="sub">7월 첫째 주 스파이크(9.33) 후 하락 — 2학기 등록 문의 추정</div>
+    </div>
+  </div>
+
+  <!-- MEDIA / OTT -->
+  <section class="board">
+    <div class="board-head">
+      <div class="board-title">
+        <h2>1. 미디어 · 콘텐츠 · IPTV/OTT</h2>
+        <div class="keywords"><span>인터넷 결합상품</span><span>OTT 구독료</span><span>넷플릭스·디즈니+</span><span>유튜브 시청시간</span></div>
+      </div>
+      <div class="spark-block">
+        <svg width="150" height="46" viewBox="0 0 150 46">
+          <polyline fill="none" stroke="var(--border)" stroke-width="1" points="0,45 150,45"/>
+          <polyline fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+            points="0,16.6 12.5,32.3 25,35.2 37.5,21.0 50,16.5 62.5,18.4 75,36.3 87.5,0.0 100,1.9 112.5,21.7 125,22.5 137.5,39.4 150,45.0"/>
+          <circle cx="150" cy="45.0" r="3.4" fill="var(--down)"/>
+        </svg>
+        <div class="spark-num">
+          <span class="val mono down">7.5</span>
+          <span class="cap">최근 주 상대지수 (100=기간 내 최고)</span>
+        </div>
+      </div>
+    </div>
+    <div class="insight"><b>요약</b> — 미디어/OTT 관련 글은 통신사 인터넷 결합상품 후기 카페가 다수를 차지하지만, 전국 단위 육아 카페에서는 "아이 유튜브 시청시간 제한 기준", "OTT 구독료 절약" 류의 글이 꾸준함. 검색 지수는 13주간 -19.5%로 완만한 하락.</div>
+    <div class="cards">
+      <div class="card">
+        <span class="cafe">외동아이 키우는 엄마들의 이야기</span>
+        <div class="ttl">아이 유튜브 시청 하루에 몇시간 정도 허용하세요?</div>
+        <div class="snip">미디어 노출 시간을 얼마나 허용할지 고민하는 글. 유튜브 시청권으로 협상하려는 아이 사례에 공감 댓글 다수.</div>
+        <a href="https://cafe.naver.com/mymyson/411308" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">아들연구소</span>
+        <div class="ttl">유트브제한 어느 기준으로 하는지 도움받고 싶어요</div>
+        <div class="snip">넷플릭스는 허용하고 유튜브만 제한하는 가정 사례. 미디어 노출 기준을 둘러싼 부모들의 다양한 원칙이 오감.</div>
+        <a href="https://cafe.naver.com/boyedu/19562" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">상위1%카페 (교육정보)</span>
+        <div class="ttl">유튜브 못보게 하는 이유!!??</div>
+        <div class="snip">미디어 노출을 아예 차단해온 부모가 아이가 크며 겪는 또래 소외 고민을 토로. 노출 제한과 사회성 사이 딜레마.</div>
+        <a href="https://cafe.naver.com/mathall/2739172" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">머니 플로우 클럽</span>
+        <div class="ttl">[쿠키포인트] 2주차 과제 - 고정비 재정비</div>
+        <div class="snip">OTT는 통신사 결합 유튜브 프리미엄만 유지하고, 넷플릭스·디즈니+는 가족·지인 계정 공유로 해결한다는 절감 사례.</div>
+        <a href="https://cafe.naver.com/moneyflowclub/10257" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOODS -->
+  <section class="board">
+    <div class="board-head">
+      <div class="board-title">
+        <h2>2. 육아용품 · 쇼핑</h2>
+        <div class="keywords"><span>유모차 추천</span><span>카시트</span><span>육아용품 신상</span><span>베이비페어</span></div>
+      </div>
+      <div class="spark-block">
+        <svg width="150" height="46" viewBox="0 0 150 46">
+          <polyline fill="none" stroke="var(--border)" stroke-width="1" points="0,45 150,45"/>
+          <polyline fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+            points="0,10.7 12.5,6.5 25,4.3 37.5,20.9 50,30.5 62.5,0.0 75,8.3 87.5,27.4 100,34.2 112.5,38.9 125,42.9 137.5,41.5 150,45.0"/>
+          <circle cx="150" cy="45.0" r="3.4" fill="var(--down)"/>
+        </svg>
+        <div class="spark-num">
+          <span class="val mono down">84.6</span>
+          <span class="cap">최근 주 상대지수 (100=기간 내 최고)</span>
+        </div>
+      </div>
+    </div>
+    <div class="insight"><b>요약</b> — 유모차·카시트 검색량은 세 주제 중 가장 높은 절대치를 유지. 맘스홀릭 베이비에 휴대용 유모차·신생아 카시트 내돈내산 후기가 오늘도 다수 올라왔고, 베이비페어 방문 후기로 신상·할인 정보도 함께 유입.</div>
+    <div class="cards">
+      <div class="card">
+        <span class="cafe">맘스홀릭 베이비</span>
+        <div class="ttl">에이블 코지샤인 트라이크(휴대용 유모차) 구매후기</div>
+        <div class="snip">9개월 아기 대상 휴대용 유모차 실사용 후기. 무게와 휴대성 위주로 만족도를 평가.</div>
+        <a href="https://cafe.naver.com/imsanbu/79613471" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">맘스홀릭 베이비</span>
+        <div class="ttl">가성비 휴대용 유모차 &lt;와이업 지니에스3&gt; 내돈내산 강력추천!</div>
+        <div class="snip">디럭스 유모차 대체용으로 가벼운 세컨 유모차를 찾던 중 선택한 후기. 손목 부담 줄이기가 주요 구매 이유.</div>
+        <a href="https://cafe.naver.com/imsanbu/79613430" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">맘스홀릭 베이비</span>
+        <div class="ttl">[유아용품 후기] 부가부 드래곤플라이플러스 절충형 유모차 후기</div>
+        <div class="snip">엄마 혼자서도 외출 가능한 절충형 유모차 내돈내산 후기. 폴딩·언폴딩 편의성과 서스펜션을 중점 평가.</div>
+        <a href="https://cafe.naver.com/imsanbu/79613156" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">맘스홀릭 베이비</span>
+        <div class="ttl">[브라이텍스 듀얼픽스 Pro] 구매후기</div>
+        <div class="snip">임신 35주 신생아 카시트 선택기. 회전 기능과 유럽 i-Size 인증을 결정 이유로 꼽음.</div>
+        <a href="https://cafe.naver.com/imsanbu/79613621" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">맘스홀릭 베이비</span>
+        <div class="ttl">베페*롯데 베이비·키즈페어 현장 후기</div>
+        <div class="snip">평촌 현대백화점 베이비페어 방문기. 여름 장마 대비 육아용품 할인 정보와 인기 신상을 함께 정리.</div>
+        <a href="https://cafe.naver.com/imsanbu/79555061" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="board">
+    <div class="board-head">
+      <div class="board-title">
+        <h2>3. 교육 · 학원</h2>
+        <div class="keywords"><span>영어유치원</span><span>사교육비</span><span>학원비 부담</span><span>엄마표 영어</span></div>
+      </div>
+      <div class="spark-block">
+        <svg width="150" height="46" viewBox="0 0 150 46">
+          <polyline fill="none" stroke="var(--border)" stroke-width="1" points="0,45 150,45"/>
+          <polyline fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
+            points="0,22.4 12.5,30.5 25,45.0 37.5,24.3 50,27.1 62.5,28.8 75,41.1 87.5,33.6 100,28.8 112.5,37.5 125,21.9 137.5,0.0 150,38.3"/>
+          <circle cx="150" cy="38.3" r="3.4" fill="var(--down)"/>
+        </svg>
+        <div class="spark-num">
+          <span class="val mono down">7.4</span>
+          <span class="cap">최근 주 상대지수 · 7/6주 피크 9.33</span>
+        </div>
+      </div>
+    </div>
+    <div class="insight"><b>요약</b> — 반복 게시성 영어유치원 후기 글은 오늘도 다수 확인되어 제외. 대신 전국 단위 카페에서 학원비 절감을 위한 인강·교육지원금 활용법과 엄마표 영어 루틴 공유가 두드러짐. 7/6주 스파이크(9.33) 이후 하락세로 -9.8%.</div>
+    <div class="cards">
+      <div class="card">
+        <span class="cafe">세상모든꿀팁</span>
+        <div class="ttl">중등 전과목 인강으로 학원비 부담 줄이고 내신 챙기는 꿀팁</div>
+        <div class="snip">국영수에 국과사까지 학원을 보내기엔 부담스러운 중등 학부모를 위한 인강 대체 전략을 정리한 글.</div>
+        <a href="https://cafe.naver.com/cafemakecafebest/76136" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">교육 & 복지 정보 타운</span>
+        <div class="ttl">교육지원금 신청 자격증 공부하는데 나라에서 돈을 준다고?</div>
+        <div class="snip">비싼 학원비·인강 비용 부담을 줄이는 국비 교육지원금 신청 루트를 정리한 글. 자부담금 0원 만들기 팁 공유.</div>
+        <a href="https://cafe.naver.com/monissam/811" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">마미톡잉글리쉬</span>
+        <div class="ttl">우리 가족을 위한 영어습관 (엄마표영어챌린지)</div>
+        <div class="snip">매일 짧은 생활영어 문장을 인증하며 이어가는 전국 단위 엄마표 영어 챌린지. 오늘도 신규 인증글 지속.</div>
+        <a href="https://cafe.naver.com/mommytalkeng/5764" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">띵동 영어 (엄마표 영어 루틴)</span>
+        <div class="ttl">엄마표 생활영어 day88</div>
+        <div class="snip">88일째 이어가는 엄마표 생활영어 루틴 인증. 매일 짧은 문장 노출을 꾸준히 쌓아가는 방식 공유.</div>
+        <a href="https://cafe.naver.com/gojackie/120187" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+      <div class="card">
+        <span class="cafe">맘이베베</span>
+        <div class="ttl">초1영어</div>
+        <div class="snip">주변은 영어학원 다니는 친구가 많지만 국영수는 엄마표로 가고 싶다는 고민. 온라인 프로그램 추가 여부를 저울질.</div>
+        <a href="https://cafe.naver.com/skybluezw4rh/14761012" target="_blank" rel="noopener noreferrer">카페에서 보기 →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>데이터 출처 — 네이버 카페글 검색 API(인기순/최신순), 네이버 데이터랩 검색어 트렌드(상대지수, 주간)</span>
+    <span>스파크라인 값은 그룹 내 최고치를 100으로 한 상대지수이며 절대 검색량이 아닙니다.</span>
+  </footer>
+</div>

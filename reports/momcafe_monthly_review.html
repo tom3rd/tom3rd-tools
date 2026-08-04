@@ -1,0 +1,70 @@
+<title>맘카페 트렌드 월간 리뷰</title>
+<style>
+:root{
+  --bg:#F3F6F4;
+  --surface:#FFFFFF;
+  --surface-2:#EAF0EC;
+  --text:#1B2422;
+  --muted:#5B6864;
+  --accent:#1F6F5C;
+  --accent-soft:#DCEAE6;
+  --accent-2:#C96A2E;
+  --border:#DCE4DF;
+  --up:#2E7D4F;
+  --down:#C0472F;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#141E1B; --surface:#1C2824; --surface-2:#22322C; --text:#E9EFEC; --muted:#93A39C;
+    --accent:#57B79A; --accent-soft:#22342E; --accent-2:#E79A5C; --border:#2A3A34; --up:#6FCB93; --down:#E17A63;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#141E1B; --surface:#1C2824; --surface-2:#22322C; --text:#E9EFEC; --muted:#93A39C;
+  --accent:#57B79A; --accent-soft:#22342E; --accent-2:#E79A5C; --border:#2A3A34; --up:#6FCB93; --down:#E17A63;
+}
+:root[data-theme="light"]{
+  --bg:#F3F6F4; --surface:#FFFFFF; --surface-2:#EAF0EC; --text:#1B2422; --muted:#5B6864;
+  --accent:#1F6F5C; --accent-soft:#DCEAE6; --accent-2:#C96A2E; --border:#DCE4DF; --up:#2E7D4F; --down:#C0472F;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'Apple SD Gothic Neo','Malgun Gothic','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;
+  line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:ui-monospace,'SF Mono',Consolas,'Roboto Mono',monospace;font-variant-numeric:tabular-nums;}
+.wrap{max-width:880px;margin:0 auto;padding:56px 24px 90px;}
+.eyebrow{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;}
+h1{font-size:clamp(26px,4vw,32px);margin:10px 0 6px;font-weight:800;letter-spacing:-.02em;text-wrap:balance;}
+.meta{color:var(--muted);font-size:13.5px;margin-bottom:36px;}
+.placeholder{
+  border:1px dashed var(--border);
+  border-radius:18px;
+  padding:32px 28px;
+  background:var(--surface);
+  display:flex; flex-direction:column; gap:10px;
+}
+.placeholder .tag{
+  display:inline-block;
+  font-size:11.5px; font-weight:700; letter-spacing:.03em;
+  color:var(--accent-2); background:var(--accent-soft);
+  padding:3px 10px; border-radius:100px; width:fit-content;
+}
+.placeholder p{margin:0;color:var(--muted);font-size:14.5px;}
+.placeholder p b{color:var(--text);}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);}
+</style>
+<div class="wrap">
+  <div class="eyebrow">Naver Cafe Trend Monitor · Monthly Review</div>
+  <h1>맘카페 트렌드 월간 리뷰</h1>
+  <div class="meta">daily 대시보드(<span class="mono">naver_momcafe_trend.html</span>)의 로그를 바탕으로 매월 1일에 갱신됩니다.</div>
+  <div class="placeholder">
+    <span class="tag">대기 중</span>
+    <p><b>모니터링이 2026-07-20에 막 시작되어 아직 한 달 분량의 로그가 쌓이지 않았습니다.</b></p>
+    <p>첫 정식 리뷰는 2026-08-01경 이 페이지가 자동으로 채워집니다. 미디어/OTT, 육아용품, 교육/학원 세 주제의 한 달간 검색 지수 추이, 반복 등장한 맘카페·키워드, 계절적 이벤트(신학기·방학 등)와의 연관성을 요약할 예정입니다.</p>
+  </div>
+  <footer>데이터 출처 — 네이버 데이터랩 검색어 트렌드, 네이버 카페글 검색 API, 일일 모니터링 로그</footer>
+</div>
