@@ -337,9 +337,12 @@
   .result-actions { display: flex; gap: 8px; width: 100%; margin-top: 2px; }
   .result-actions .btn-primary {
     flex: 1;
+    min-width: 0;
     padding-left: 10px;
     padding-right: 10px;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* ---------- cashed ---------- */
