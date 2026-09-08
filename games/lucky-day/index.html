@@ -148,19 +148,22 @@
   }
   .hero-copy strong { color: var(--coral-deep); font-weight: 700; }
 
-  .btn-primary {
+  .btn-primary, .btn-outline {
     font-family: var(--font-body);
     font-weight: 700;
-    font-size: 15.5px;
-    color: #fff;
-    background: linear-gradient(180deg, var(--coral), var(--coral-deep));
-    border: none;
-    padding: 15px 24px;
+    font-size: 14.5px;
+    padding: 14px 20px;
     border-radius: 16px;
     cursor: pointer;
     touch-action: manipulation;
-    box-shadow: 0 10px 20px -8px rgba(224, 80, 60, 0.55);
     transition: transform 0.12s ease;
+  }
+
+  .btn-primary {
+    color: #fff;
+    background: linear-gradient(180deg, var(--coral), var(--coral-deep));
+    border: none;
+    box-shadow: 0 10px 20px -8px rgba(224, 80, 60, 0.55);
   }
   .btn-primary:active { transform: translateY(1px) scale(0.98); }
   .btn-primary:disabled { opacity: 0.65; cursor: default; transform: none; }
@@ -171,17 +174,10 @@
 
   .btn-outline {
     width: 100%;
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 13.5px;
     color: var(--mint-deep);
     background: var(--mint-soft);
-    border: 1px dashed var(--mint);
-    padding: 12px 16px;
-    border-radius: 16px;
-    cursor: pointer;
-    touch-action: manipulation;
-    transition: transform 0.12s ease;
+    border: 1.5px dashed var(--mint);
+    box-shadow: none;
   }
   .btn-outline:active { transform: scale(0.985); }
   .btn-outline:disabled { opacity: 0.45; cursor: default; }
