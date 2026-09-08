@@ -335,14 +335,12 @@
   .result-panel.lose .result-title { color: var(--pink); }
   .result-copy { font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; }
   .result-actions { display: flex; gap: 8px; width: 100%; margin-top: 2px; }
-  .result-actions .btn-primary, .result-actions .btn-outline {
+  .result-actions .btn-primary {
     flex: 1;
-    width: auto;
     padding-left: 10px;
     padding-right: 10px;
     white-space: nowrap;
   }
-  .result-actions .btn-outline { background: #fff; border: 1.5px solid var(--mint); }
 
   /* ---------- cashed ---------- */
   .cashed-amount {
@@ -725,7 +723,7 @@
       }
 
       var bankBtn = document.createElement('button');
-      bankBtn.className = atMax ? 'btn-primary mint' : 'btn-outline';
+      bankBtn.className = 'btn-primary mint';
       bankBtn.type = 'button';
       bankBtn.textContent = atMax ? '적립하고 마무리' : '적립하기';
       bankBtn.addEventListener('click', function () { bankTokens(atMax); });
