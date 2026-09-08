@@ -180,8 +180,8 @@
   /* ---------- stage readout ---------- */
   .stage-readout {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
     width: 100%;
   }
   .stat {
@@ -189,24 +189,25 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    padding: 10px 6px;
+    padding: 10px 4px;
     border: 1px solid var(--border-soft);
     border-radius: 12px;
     background: var(--bg);
   }
   .stat-label {
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
     color: var(--text-faint);
   }
   .stat-value {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
-    font-size: 19px;
+    font-size: 16.5px;
     font-weight: 600;
     color: var(--text);
   }
   .stat-token .stat-value { color: var(--gold-soft); }
+  .stat-mult .stat-value { color: var(--mint); }
 
   /* ---------- card grid ---------- */
   .card-grid {
@@ -330,6 +331,12 @@
     color: var(--mint);
     font-variant-numeric: tabular-nums;
   }
+  .all-clear-badge {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gold-soft);
+  }
 
   /* ---------- modal ---------- */
   .modal-backdrop {
@@ -442,7 +449,7 @@
   <main id="screens">
     <section class="screen" id="screen-intro">
       <div class="clover" aria-hidden="true">🍀</div>
-      <p class="intro-copy">광고를 시청하면 <strong>100 토큰</strong>으로 오늘의 게임을 시작해요. 단계마다 카드 중 하나에 숨은 행운의 카드를 찾으면 토큰이 두 배가 됩니다. 놓치면 이번 판의 토큰을 모두 잃어요.</p>
+      <p class="intro-copy">광고를 시청하면 <strong>100 토큰</strong>으로 오늘의 게임을 시작해요. 카드는 2·4·6·8·10장으로 늘어나고 배율도 함께 커져요. 행운의 카드를 찾을 때마다 다음 단계에 도전할지, 지금까지 딴 토큰을 적립할지 선택할 수 있어요. 5단계를 모두 통과하면 자동으로 적립돼요. 다른 카드를 고르면 이번 판의 토큰을 모두 잃어요.</p>
       <button class="btn-primary" id="watchAdBtn" type="button">
         <span id="watchAdLabel">광고 보고 시작하기</span>
       </button>
@@ -462,6 +469,10 @@
           <span class="stat-label">확률</span>
           <span class="stat-value" id="oddsValue">1/2</span>
         </div>
+        <div class="stat stat-mult">
+          <span class="stat-label">배율</span>
+          <span class="stat-value" id="multValue">×2</span>
+        </div>
       </div>
 
       <div class="card-grid" id="cardGrid"></div>
@@ -469,13 +480,14 @@
       <div id="resultSlot"></div>
 
       <div class="play-actions">
-        <button class="btn-secondary" id="cashOutBtn" type="button">지금 교환하기 — 토큰을 지갑에 담기</button>
+        <button class="btn-secondary" id="cashOutBtn" type="button">지금 적립하기 — 토큰을 지갑에 저장</button>
       </div>
     </section>
 
     <section class="screen" id="screen-cashed" hidden>
       <div class="clover" aria-hidden="true">💰</div>
-      <p class="result-copy">지갑에 담았어요</p>
+      <p class="all-clear-badge" id="allClearBadge" hidden>🏆 5단계 올클리어!</p>
+      <p class="result-copy">지갑에 적립했어요</p>
       <div class="cashed-amount" id="cashedAmount">0</div>
       <button class="btn-primary" id="playAgainBtn" type="button">다시 시작하기</button>
     </section>
@@ -524,7 +536,7 @@
 
   var WALLET_KEY = 'luckyday_wallet_v1';
   var START_TOKENS = 100;
-  var MAX_GROWTH_STAGE = 6; // card count stops growing after this stage
+  var MAX_STAGE = 5; // game ends after this stage is cleared
 
   var state = {
     wallet: readWallet(),
@@ -546,10 +558,12 @@
     stageValue: document.getElementById('stageValue'),
     tokenValue: document.getElementById('tokenValue'),
     oddsValue: document.getElementById('oddsValue'),
+    multValue: document.getElementById('multValue'),
     cardGrid: document.getElementById('cardGrid'),
     resultSlot: document.getElementById('resultSlot'),
     cashOutBtn: document.getElementById('cashOutBtn'),
     cashedAmount: document.getElementById('cashedAmount'),
+    allClearBadge: document.getElementById('allClearBadge'),
     playAgainBtn: document.getElementById('playAgainBtn'),
     exchangeBtn: document.getElementById('exchangeBtn'),
     exchangeModal: document.getElementById('exchangeModal'),
@@ -576,8 +590,11 @@
   }
 
   function cardCountForStage(stage) {
-    var grown = Math.min(stage, MAX_GROWTH_STAGE);
-    return 2 * grown;
+    return stage * 2;
+  }
+
+  function multiplierForStage(stage) {
+    return stage + 1;
   }
 
   function showScreen(name) {
@@ -608,6 +625,7 @@
     el.stageValue.textContent = state.stage;
     el.tokenValue.textContent = state.runTokens.toLocaleString('ko-KR');
     el.oddsValue.textContent = '1/' + state.cardCount;
+    el.multValue.textContent = '×' + multiplierForStage(state.stage);
 
     state.luckyIndex = Math.floor(Math.random() * state.cardCount);
 
@@ -662,22 +680,43 @@
   function showResult(won) {
     var panel = document.createElement('div');
     if (won) {
+      var mult = multiplierForStage(state.stage);
       var before = state.runTokens;
-      state.runTokens *= 2;
+      var after = before * mult;
+      state.runTokens = after;
+      var atMax = state.stage >= MAX_STAGE;
+
       panel.className = 'result-panel win';
       panel.innerHTML =
-        '<div class="result-title">🍀 LUCKY!</div>' +
-        '<div class="result-copy">' + before.toLocaleString('ko-KR') + ' → <strong style="color:var(--mint)">' + state.runTokens.toLocaleString('ko-KR') + '</strong> 토큰</div>';
-      el.tokenValue.textContent = state.runTokens.toLocaleString('ko-KR');
+        '<div class="result-title">🍀 LUCKY! ×' + mult + '</div>' +
+        '<div class="result-copy">' + before.toLocaleString('ko-KR') + ' → <strong style="color:var(--mint)">' + after.toLocaleString('ko-KR') + '</strong> 토큰' +
+        (atMax ? '<br><span style="color:var(--gold-soft)">5단계 올클리어!</span>' : '') +
+        '</div>';
+      el.tokenValue.textContent = after.toLocaleString('ko-KR');
       spawnConfetti();
 
-      var nextBtn = document.createElement('button');
-      nextBtn.className = 'btn-primary';
-      nextBtn.type = 'button';
-      nextBtn.textContent = '다음 스테이지로';
-      nextBtn.style.marginTop = '4px';
-      nextBtn.addEventListener('click', advanceStage);
-      panel.appendChild(nextBtn);
+      var actions = document.createElement('div');
+      actions.style.cssText = 'display:flex;gap:8px;width:100%;margin-top:4px;';
+
+      if (!atMax) {
+        var nextBtn = document.createElement('button');
+        nextBtn.className = 'btn-primary';
+        nextBtn.type = 'button';
+        nextBtn.style.flex = '1';
+        nextBtn.textContent = '다음 스테이지로';
+        nextBtn.addEventListener('click', advanceStage);
+        actions.appendChild(nextBtn);
+      }
+
+      var bankBtn = document.createElement('button');
+      bankBtn.className = atMax ? 'btn-primary' : 'btn-secondary';
+      bankBtn.type = 'button';
+      bankBtn.style.flex = '1';
+      bankBtn.textContent = atMax ? '적립하고 마무리' : '여기서 적립하기';
+      bankBtn.addEventListener('click', function () { bankTokens(atMax); });
+      actions.appendChild(bankBtn);
+
+      panel.appendChild(actions);
     } else {
       panel.className = 'result-panel lose';
       panel.innerHTML =
@@ -708,10 +747,15 @@
 
   function cashOut() {
     if (state.phase !== 'playing' || state.runTokens <= 0) return;
+    bankTokens(false);
+  }
+
+  function bankTokens(allClear) {
     state.wallet += state.runTokens;
     writeWallet(state.wallet);
     renderWallet();
     el.cashedAmount.textContent = '+' + state.runTokens.toLocaleString('ko-KR');
+    el.allClearBadge.hidden = !allClear;
     state.runTokens = 0;
     state.phase = 'cashed';
     showScreen('cashed');
