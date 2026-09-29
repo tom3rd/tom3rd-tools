@@ -1,17 +1,27 @@
-# screencap (Windows)
+# 화면 캡처 (Windows)
 
 개인용 화면 캡처 도구.
 
-## 실행
-- `run.bat` 더블클릭 (처음엔 라이브러리 자동 설치), 또는
-- `pip install -r requirements.txt` 후 `python screencap.py`
-- exe로 만들려면 `build_exe.bat` → `dist\screencap.exe`
+## 처음 한 번만
+`setup.bat` 더블클릭 → 라이브러리 설치 + **바탕화면/시작 메뉴 바로가기** 생성 후 바로 실행.
+
+## 그 다음부터
+- 바탕화면의 **화면 캡처** 아이콘 더블클릭 (또는 Win 키 → "화면 캡처" 검색). 콘솔 창은 뜨지 않아요.
+- 창의 X를 눌러도 **트레이에 남아서** 단축키가 계속 동작해요. 종료는 트레이 아이콘 우클릭 → 종료.
+- 이미 실행 중일 때 다시 실행하면 새로 뜨지 않고 기존 창이 열려요.
+- 창의 "Windows 시작 시 자동 실행" 체크 → 부팅 때 트레이로 자동 시작.
 
 ## 사용법
-- **전역 단축키** (다른 프로그램 사용 중에도 동작)
-  - `Ctrl+Shift+A` 영역 선택 (드래그, ESC 취소)
-  - `Ctrl+Shift+F` 전체 화면
-- 창 버튼 / F1 / F2도 사용 가능
-- 지연(초): 메뉴·툴팁 캡처용
-- 저장: `%USERPROFILE%\Pictures\ScreenCaps\` + 클립보드 복사(체크 해제 가능)
-- 고배율 디스플레이 DPI 보정 적용
+| 동작 | 단축키 |
+|---|---|
+| 영역 캡처 (드래그, ESC/우클릭 취소) | `Ctrl+Shift+A` |
+| 전체 화면 캡처 | `Ctrl+Shift+F` |
+
+- 영역 선택은 화면을 얼려서 보여주고, 선택한 부분만 밝게 + 크기(W×H) 표시
+- 지연(3/5/10초): 메뉴·툴팁 캡처용 (카운트다운 표시)
+- 캡처하면 우하단에 썸네일 알림 → 클릭하면 파일 열림
+- 저장: `내 폴더\Pictures\ScreenCaps\` + 클립보드 복사(체크 해제 가능)
+- 설정은 `%USERPROFILE%\.screencap\config.json`에 저장
+
+## exe로 만들기 (선택)
+`build_exe.bat` → `dist\screencap.exe`
