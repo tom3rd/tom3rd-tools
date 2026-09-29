@@ -38,6 +38,32 @@ def grab(bbox=None) -> Image.Image:
         return Image.frombytes("RGB", shot.size, shot.bgra, "raw", "BGRX")
 
 
+def copy_to_clipboard(img: Image.Image):
+    """Windows 클립보드에 이미지 복사 (CF_DIB). 다른 OS에서는 무시."""
+    if not sys.platform.startswith("win"):
+        return
+    import ctypes
+    import io
+
+    buf = io.BytesIO()
+    img.convert("RGB").save(buf, "BMP")
+    data = buf.getvalue()[14:]  # BMP 파일 헤더 제거 -> DIB
+    k32, u32 = ctypes.windll.kernel32, ctypes.windll.user32
+    k32.GlobalAlloc.restype = ctypes.c_void_p
+    k32.GlobalLock.restype = ctypes.c_void_p
+    k32.GlobalLock.argtypes = [ctypes.c_void_p]
+    k32.GlobalUnlock.argtypes = [ctypes.c_void_p]
+    u32.SetClipboardData.argtypes = [ctypes.c_uint, ctypes.c_void_p]
+    h = k32.GlobalAlloc(0x0002, len(data))  # GMEM_MOVEABLE
+    p = k32.GlobalLock(h)
+    ctypes.memmove(p, data, len(data))
+    k32.GlobalUnlock(h)
+    if u32.OpenClipboard(None):
+        u32.EmptyClipboard()
+        u32.SetClipboardData(8, h)  # CF_DIB
+        u32.CloseClipboard()
+
+
 def open_folder():
     SAVE_DIR.mkdir(parents=True, exist_ok=True)
     if sys.platform.startswith("win"):
@@ -57,6 +83,7 @@ class App:
 
         self.delay = tk.IntVar(value=0)
         self.status = tk.StringVar(value="준비됨")
+        self.clip = tk.BooleanVar(value=True)
 
         f = tk.Frame(root, padx=12, pady=12)
         f.pack()
@@ -68,11 +95,33 @@ class App:
         tk.Label(d, text="지연(초):").pack(side="left")
         tk.Spinbox(d, from_=0, to=30, width=4, textvariable=self.delay).pack(side="left", padx=4)
 
+        tk.Checkbutton(f, text="클립보드에도 복사", variable=self.clip).pack()
         tk.Button(f, text="저장 폴더 열기", width=22, command=open_folder).pack(pady=3)
         tk.Label(f, textvariable=self.status, fg="gray", wraplength=220).pack(pady=(8, 0))
 
         root.bind("<F1>", lambda e: self.region())
         root.bind("<F2>", lambda e: self.fullscreen())
+        self._start_global_hotkeys()
+
+    def _start_global_hotkeys(self):
+        """다른 프로그램을 쓰는 중에도 Ctrl+Shift+A(영역) / Ctrl+Shift+F(전체)."""
+        try:
+            from pynput import keyboard
+            self._hk = keyboard.GlobalHotKeys({
+                "<ctrl>+<shift>+a": lambda: self.root.after(0, self.region),
+                "<ctrl>+<shift>+f": lambda: self.root.after(0, self.fullscreen),
+            })
+            self._hk.daemon = True
+            self._hk.start()
+            self.status.set("준비됨 (Ctrl+Shift+A 영역 / F 전체)")
+        except Exception as ex:  # noqa
+            self.status.set(f"전역 단축키 사용 불가: {ex}")
+
+    def _save(self, img):
+        path = save_image(img)
+        if self.clip.get():
+            copy_to_clipboard(img)
+        self.status.set(f"저장됨: {path.name}")
 
     # 창을 숨기고(지연 포함) 캡처한 뒤 다시 표시
     def _run_hidden(self, action):
@@ -90,8 +139,7 @@ class App:
 
     def fullscreen(self):
         def do():
-            path = save_image(grab())
-            self.status.set(f"저장됨: {path.name}")
+            self._save(grab())
         self._run_hidden(do)
 
     def region(self):
@@ -100,8 +148,7 @@ class App:
             if not bbox:
                 self.status.set("취소됨")
                 return
-            path = save_image(grab(bbox))
-            self.status.set(f"저장됨: {path.name}")
+            self._save(grab(bbox))
         self._run_hidden(do)
 
 
