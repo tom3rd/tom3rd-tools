@@ -5,8 +5,10 @@
 | 주소 정규화 `maps_geocode` | 동작 확인 | |
 | 건축물대장 `bld_register` | 동작 확인 | 주소로 조회 시 인근 필지로 대체되나 결과는 정확 |
 | K-apt 공동주택 단지·관리비 (data.go.kr) | **미동작** | `gov_raw`로 `1613000/AptListService3`, `AptListService2` 호출 시 "서비스 없음/폐기" 오류. 서비스 경로가 다르거나 해당 API 활용신청이 안 된 상태 |
-| 국가법령정보 Open API / law.go.kr | **차단** | 클라우드 환경 네트워크 정책이 호스트를 막음 (CONNECT 403) |
-| k-apt.go.kr 직접 접속 | **차단** | 동일 |
+| 법령 본문 (law.go.kr) | **Firecrawl로 동작 확인** | 네트워크 허용 후에도 직접 접속(curl)은 연결 끊김(해외 IP 차단 추정). `firecrawl_scrape`로 공동주택관리법 본문 수신 확인(2026-10-16, 캐시본) |
+| 국가법령정보 Open API (인증키) | 미설정 | 현재는 Firecrawl로 대체 가능. 키 발급은 선택 |
+| k-apt.go.kr 직접 접속 | **연결 끊김** | 첫 접속은 200이나 이후 재접속 실패. Firecrawl로 우회 시험 필요 |
+| apis.data.go.kr | 접속됨 | 서비스 경로/활용신청 문제는 위 K-apt 행 참고 |
 | 민원 여론 `search_cafearticle/blog/news` | 미시험 | 네이버 API |
 | Gmail/Calendar/Drive/Notion | 연결됨, 미시험 | 일정·공고 알림용 |
 
