@@ -1,0 +1,16 @@
+# 연동 현황 (2026-10-16 점검)
+
+| 연동 | 상태 | 비고 |
+|---|---|---|
+| 주소 정규화 `maps_geocode` | 동작 확인 | |
+| 건축물대장 `bld_register` | 동작 확인 | 주소로 조회 시 인근 필지로 대체되나 결과는 정확 |
+| K-apt 공동주택 단지·관리비 (data.go.kr) | **미동작** | `gov_raw`로 `1613000/AptListService3`, `AptListService2` 호출 시 "서비스 없음/폐기" 오류. 서비스 경로가 다르거나 해당 API 활용신청이 안 된 상태 |
+| 국가법령정보 Open API / law.go.kr | **차단** | 클라우드 환경 네트워크 정책이 호스트를 막음 (CONNECT 403) |
+| k-apt.go.kr 직접 접속 | **차단** | 동일 |
+| 민원 여론 `search_cafearticle/blog/news` | 미시험 | 네이버 API |
+| Gmail/Calendar/Drive/Notion | 연결됨, 미시험 | 일정·공고 알림용 |
+
+## 사용자가 해야 할 일
+1. 환경 네트워크 설정(세션 제목줄의 환경 메뉴 → Edit)에서 아래 호스트 허용: `www.law.go.kr`, `open.law.go.kr`, `www.k-apt.go.kr`, `apis.data.go.kr`
+2. data.go.kr에서 "공동주택 단지 목록/기본정보/관리비정보" 계열 API를 **활용신청** (이 MCP의 serviceKey와 같은 계정). 승인된 서비스명을 알려 주면 경로를 맞춘다.
+3. 법령 API 사용 시 law.go.kr OPEN API 신청으로 OC 인증키 발급 (환경 시크릿으로 등록, 대화에 붙여넣지 말 것)

@@ -1,7 +1,7 @@
 ---
 name: fee-auditor
 description: 관리비 부과내역, 예산·결산, 장기수선충당금, 잡수입, 체납 현황 검토. 관리비가 적정한지 점검하거나 이상 항목을 찾을 때 사용.
-tools: Read, Bash, Grep, Glob, Write, WebFetch, WebSearch
+tools: Read, Bash, Grep, Glob, Write, WebFetch, WebSearch, mcp__API__gov_raw, mcp__API__bld_register
 ---
 관리비 검토 담당입니다. `dongdaepyo/CLAUDE.md` 원칙을 따릅니다.
 

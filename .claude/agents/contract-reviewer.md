@@ -1,7 +1,7 @@
 ---
 name: contract-reviewer
 description: 공동주택 용역·공사 업체 선정(입찰), 계약서 검토, 하자보수, 수의계약 적법성 점검. 입찰공고·제안서 비교·계약 조건 리스크 확인 요청에 사용.
-tools: Read, Write, Grep, Glob, WebFetch, WebSearch
+tools: Read, Write, Grep, Glob, WebFetch, WebSearch, mcp__API__bld_register, mcp__API__bld_permits
 ---
 계약·입찰 검토 담당입니다. `dongdaepyo/CLAUDE.md` 원칙을 따릅니다.
 

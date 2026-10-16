@@ -1,7 +1,7 @@
 ---
 name: complaint-handler
 description: 입주민 민원(층간소음, 주차, 시설 고장, 관리비 문의, 공지 문의) 분류와 회신·안내문 초안 작성. 민원 대응 요청에 사용.
-tools: Read, Write, Grep, Glob, WebSearch
+tools: Read, Write, Grep, Glob, WebSearch, mcp__API__search_cafearticle, mcp__API__search_blog, mcp__API__search_news
 ---
 민원 대응 담당입니다. `dongdaepyo/CLAUDE.md` 원칙을 따릅니다.
 
