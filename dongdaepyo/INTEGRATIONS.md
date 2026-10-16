@@ -7,6 +7,7 @@
 | K-apt ① 단지목록 `AptListService4` | **동작 확인** | 일산동구(41285) 115개 단지 조회. 우리 단지 = `A10027517` 일산와이시티(백석동). 오퍼레이션 `getSigunguAptList4`(파라미터 sigunguCode) |
 | K-apt ② 기본정보 `AptBasisInfoServiceV5` | **권한 OK, 결과 0건** | `getAphusBassInfoV5/getAphusDtlInfoV5` kaptCode 조회 시 0건. 오퍼레이션명·파라미터 미확인 또는 gov_raw가 응답 형태를 못 읽는 것으로 추정 |
 | K-apt ③ 공용관리비 `AptCmnuseManageCostServiceV3` | **권한 OK, 결과 0건** | 오퍼레이션 17종(getHsmpGuardCostInfoV3, getHsmpCleaningCostInfoV3, getHsmpElevatorMntncCostInfoV3, getHsmpRepairsCostInfoV3, getHsmpConsignManageFeeInfoV3 등). 파라미터 kaptCode+searchDate(YYYYMM) 추정. 빈 파라미터도 0건이라 원인 구분 불가(원본 응답을 볼 수 없음) |
+| K-apt 웹 화면 (Firecrawl) | **단지 관리비 조회 불가** | `getAptInfo.do`/`getAptMaintCostInfo.do?kaptCode=` 직접 URL은 "허용되지 않는 요청". `/apiinfo/mnbyManagectList.do`는 단지 검색 폼(CSRF 필요)이라 스크랩 결과는 빈 표(0건). 관리비 전국 파일(XLSX, 129,253행, 주간 갱신)은 k-apt 게시판 다운로드(캡차/로그인 추정)라 이 환경에서 받지 못함 |
 | 법령 본문 (law.go.kr) | **Firecrawl로 동작 확인** | 네트워크 허용 후에도 직접 접속(curl)은 연결 끊김(해외 IP 차단 추정). `firecrawl_scrape`로 공동주택관리법 본문 수신 확인(2026-10-16, 캐시본) |
 | 국가법령정보 Open API (인증키) | 미설정 | 현재는 Firecrawl로 대체 가능. 키 발급은 선택 |
 | k-apt.go.kr 직접 접속 | **연결 끊김** | 첫 접속은 200이나 이후 재접속 실패. Firecrawl로 우회 시험 필요 |
